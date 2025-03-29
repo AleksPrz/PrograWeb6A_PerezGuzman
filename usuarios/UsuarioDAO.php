@@ -42,7 +42,12 @@ class UsuarioDAO implements IDao {
             ':correo' => $usuario->getCorreo()
         ];
 
-        return $this->dataSource->ejecutarActualizacion($sql, $values);
+        $rowCount = $this->dataSource->ejecutarActualizacion($sql, $values);
+        $id = $this->dataSource->getConexion()->lastInsertId();
+        $usuario->setId($id);
+
+        return $rowCount;
+
     }
 
     public function actualizar(Usuario $usuario) {

@@ -40,9 +40,9 @@ class Usuario {
         return $usuarioDAO->actualizar($this);
     }
 
-    public function eliminar($id) {
+    public function eliminar() {
         $usuarioDAO = new UsuarioDAO();
-        return $usuarioDAO->eliminar($id);
+        return $usuarioDAO->eliminar($this->id);
     }
 
     public function getId() {

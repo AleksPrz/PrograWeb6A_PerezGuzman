@@ -49,4 +49,8 @@ class DataSource {
             return 0;
         }
     }
+
+    public function getConexion() {
+        return $this->conexion;
+    }
 }
