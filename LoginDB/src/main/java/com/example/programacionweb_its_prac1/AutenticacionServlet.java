@@ -91,9 +91,17 @@ public class AutenticacionServlet extends HttpServlet {
             jResp.failed(req, resp, "Todos los campos son obligatorios", HttpServletResponse.SC_FORBIDDEN);
             return;
         }
-        User existentUser = userDAO.buscar(username);
+        // Buscar username duplicado
+        User existentUser = userDAO.buscar("username", username);
         if(existentUser != null) {
             jResp.failed(req, resp, "Usuario ya existe", 422);
+            return;
+        }
+
+        // Buscar correo duplicado
+        User existentEmail = userDAO.buscar("email", email);
+        if(existentEmail != null) {
+            jResp.failed(req, resp, "EL correo ya se encuentra registrado", 422);
             return;
         }
 
@@ -126,7 +134,7 @@ public class AutenticacionServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        User user = userDAO.buscar(username);
+        User user = userDAO.buscar("username", username);
 
         if (user != null) {
             if (verifyPassword(password, user.getPassword())) {

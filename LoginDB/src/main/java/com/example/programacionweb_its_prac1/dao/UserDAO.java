@@ -45,8 +45,8 @@ public class UserDAO implements DAOGeneral<Integer, User>{
         return user;
     }
 
-    public User buscar(String username) {
-        String query = "SELECT * FROM users WHERE username = '" + username + "'";
+    public User buscar(String columna, String valor) {
+        String query = "SELECT * FROM users WHERE  " + columna  + " = '" + valor + "'";
         ArrayList<ArrayList<String>> res = c.ejecutarConsulta(query, new String[]{});
 
         User user = null;

@@ -80,9 +80,17 @@ public class UserServlet extends HttpServlet {
             return;
         }
 
-        User existentUser = userDAO.buscar(username);
+        // Buscar username duplicado
+        User existentUser = userDAO.buscar("username", username);
         if(existentUser != null) {
             jResp.failed(req, resp, "Usuario ya existe", 422);
+            return;
+        }
+
+        // Buscar correo duplicado
+        User existentEmail = userDAO.buscar("email", email);
+        if(existentEmail != null) {
+            jResp.failed(req, resp, "EL correo ya se encuentra registrado", 422);
             return;
         }
 
