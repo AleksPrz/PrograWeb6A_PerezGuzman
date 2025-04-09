@@ -57,11 +57,17 @@ public class AuthController {
         }
     }
 
-    /**
+
     @PostMapping("/logout")
-    public ResponseEntity<Usuario> logout() {
-        return null;
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String tokenHeader) {
+        // Validar token
+        String token = tokenHeader.replace("Bearer ", "");
+        if(!tokenService.validateToken(token)) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        return ResponseEntity.ok("Sesión finalizada");
     }
 
-    */
+
 }
